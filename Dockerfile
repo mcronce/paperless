@@ -28,7 +28,10 @@ RUN mkdir -p $PAPERLESS_CONSUMPTION_DIR
 
 # Migrate database
 WORKDIR /usr/src/paperless/src
-RUN ./manage.py migrate
+RUN \
+	./manage.py migrate && \
+	mv -vf /usr/src/paperless/data /usr/src/paperless/data.default && \
+	mkdir -pv /usr/src/paperless/data
 
 # Create user
 RUN groupadd -g 1000 paperless \
