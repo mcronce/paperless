@@ -86,6 +86,10 @@ if [[ "$1" != "/"* ]]; then
         install_languages "$PAPERLESS_OCR_LANGUAGES"
     fi
 
+    if [ ! -f /usr/src/paperless/data/db.sqlite3 ]; then
+        cp -avf /usr/src/paperless/data.default/db.sqlite3 /usr/src/paperless/data/;
+    fi;
+
     exec sudo -HEu paperless "/usr/src/paperless/src/manage.py" "$@"
 fi
 
